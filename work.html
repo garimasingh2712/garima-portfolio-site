@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Work · Garima Singh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<header class="bar m">
+  <a href="index.html">Garima Singh</a>
+  <button class="radio mid" type="button" data-radio aria-pressed="false"><span class="dot"></span><span class="rl">Play radio</span><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button>
+  <nav><a href="work.html" aria-current="page">Work</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
+</header>
+<main>
+  <div class="phead"><h1>All <span>work</span></h1><span class="m mute">14 projects · 3 groups</span></div>
+  <section class="contents" id="toc"></section>
+</main>
+<footer class="slim m">
+  <span class="mute">© 2026 Garima Singh · London</span>
+  <span><a href="work.html">Work</a> · <a href="about.html">About</a> · <a href="contact.html">Contact</a> · <a href="#">Studio site ↗</a></span>
+</footer>
+<script src="data.js"></script>
+<script>
+  let k = 0;
+  document.getElementById('toc').innerHTML = CATS.map(([id, h]) => `<div><h3 class="m">${h}</h3><ol>${P.filter((p) => p.cat === id).map((p) => `<li><a href="${href(p)}" style="--pc:${p.c}"><span class="n m">${pad(++k)}</span><span><b>${p.t}</b><span class="w">${p.w}</span></span><img src="${p.img}" alt="" loading="lazy"></a></li>`).join('')}</ol></div>`).join('');
+</script>
+<script src="radio.js"></script>
+</body>
+</html>

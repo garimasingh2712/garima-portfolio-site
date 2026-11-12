@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Garima Singh · Product Design Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<header class="bar m">
+  <a href="index.html">Garima Singh</a>
+  <button class="radio mid" type="button" data-radio aria-pressed="false"><span class="dot"></span><span class="rl">Play radio</span><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button>
+  <nav><a href="work.html">Work</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
+</header>
+
+<main>
+  <section class="cover">
+    <div>
+      <h1>Garima Singh<span>Product designer</span></h1>
+      <div class="intro">
+        <p>I design objects and the interfaces that go with them, and I build and test them myself: wheels, booths, apps and AI tools.</p>
+      </div>
+      <div class="actions"><a class="btn fill" href="work.html">See the work →</a></div>
+    </div>
+
+    <div class="gs" id="gs">
+      <div class="gs-top m"><b>GS–26</b><span>Project receiver</span><span class="gs-pwr">On</span></div>
+      <div class="gs-screen" id="scr">
+        <div class="gs-hud m" aria-hidden="true">
+          <div class="row"><span class="pill c" id="hch">CH 01</span><span class="pill" id="hkind">Physical · 2025</span></div>
+          <div class="ttl"><b id="ht">TransfoRim</b><span id="hw">Shape-shifting wheel for mixed terrain</span></div>
+        </div>
+        <div class="gs-prog"><i id="prog"></i></div>
+      </div>
+      <div class="gs-body">
+        <div class="gs-dialwrap" id="dial">
+          <div class="gs-scale"></div>
+          <button class="gs-knob" id="knob" type="button" role="slider" aria-label="Tune to a project. Arrow keys to turn, Enter to open." aria-valuemin="1" aria-valuemax="7" aria-valuenow="1"></button>
+          <span class="gs-tune m">Tune</span>
+        </div>
+        <div class="gs-side">
+          <div class="gs-mode"><span class="m mute">Mode</span>
+            <div class="gs-tog" id="tog" role="group" aria-label="Show"><span class="cap" id="cap"></span><button type="button" data-f="all" aria-pressed="true">ALL</button><button type="button" data-f="physical" aria-pressed="false">PHYS</button><button type="button" data-f="digital" aria-pressed="false">DIGI</button></div>
+          </div>
+          <div class="gs-mode"><span class="m mute">Ch.</span><div class="gs-leds" id="leds"></div></div>
+          <div class="gs-row">
+            <div class="gs-grille" aria-hidden="true"></div>
+            <button class="gs-radio" type="button" data-radio aria-pressed="false" aria-label="Radio on or off"><span class="eq"><i></i><i></i><i></i></span></button>
+            <a class="gs-open" id="go" href="transforim.html">OPEN →</a>
+          </div>
+        </div>
+      </div>
+      <div class="gs-plate m"><span>Turn, scroll or use arrow keys</span><span>Made in London</span></div>
+    </div>
+  </section>
+
+  <div class="sec"><h2>Selected</h2><span class="m mute">Five to start with</span></div>
+  <section class="bento" id="picks"></section>
+  <div class="more m"><a href="work.html">All 14 projects →</a></div>
+
+  <div class="sec"><h2>After work</h2><span class="m mute">Fun facts</span></div>
+  <section class="folders" id="folders" aria-label="Things I do after work"></section>
+</main>
+
+<footer class="slim m">
+  <span class="mute">© 2026 Garima Singh · London</span>
+  <span><a href="work.html">Work</a> · <a href="about.html">About</a> · <a href="contact.html">Contact</a> · <a href="#">Studio site ↗</a></span>
+</footer>
+<script src="data.js"></script>
+<script src="radio.js"></script>
+<script>
+  const root = document.documentElement;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // selected: one lead project and four beside it
+  document.getElementById('picks').innerHTML = P.slice(0, 5).map((p, i) => `
+    <a class="bc ${i === 0 ? 'lead' : ''}" href="${href(p)}" style="--pc:${p.c}">
+      <div class="ph"><span class="n m">${pad(i + 1)}</span><img src="${p.img}" alt="${p.t}" loading="lazy"${p.pos ? ` style="object-position:${p.pos}"` : ''}></div>
+      <div class="hd"><b>${p.t}</b><span class="meta m">${p.y}</span></div>
+      <span class="w">${p.w}${i === 0 ? '. ' + p.role + '.' : ''}</span>
+    </a>`).join('');
+
+  // after work: a row of folder tabs; pick one to pull its folder to the front
+  const fbox = document.getElementById('folders');
+  fbox.innerHTML = `<div class="ftabs">${HOBBIES.map(([t], i) => `<button class="tab" type="button" role="tab" id="ft${i}" aria-controls="fp${i}" aria-selected="false" style="--i:${i};--fc:${FOLDER_COLOURS[i % FOLDER_COLOURS.length]}"><span class="m">${pad(i + 1)}</span><span class="tt">${t}</span></button>`).join('')}</div>
+    <div class="fstack">${HOBBIES.map(([t, note], i) => `<div class="body" role="tabpanel" id="fp${i}" aria-labelledby="ft${i}" style="--fc:${FOLDER_COLOURS[i % FOLDER_COLOURS.length]}" hidden>
+        <span class="m">File ${pad(i + 1)} / ${pad(HOBBIES.length)} · After work</span><q>${note}</q><span class="m">${t}</span></div>`).join('')}</div>`;
+  const tabs = [...fbox.querySelectorAll('.tab')], panes = [...fbox.querySelectorAll('.body')];
+  const openFolder = (i) => { tabs.forEach((t, k) => { t.setAttribute('aria-selected', String(k === i)); t.tabIndex = k === i ? 0 : -1; t.style.zIndex = k === i ? 20 : 10 - Math.abs(k - i); }); panes.forEach((p, k) => p.hidden = k !== i); };
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => openFolder(i));
+    t.addEventListener('keydown', (e) => { const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (!d) return; e.preventDefault(); const j = (i + d + tabs.length) % tabs.length; openFolder(j); tabs[j].focus(); });
+  });
+  openFolder(0);
+
+  // GS–26
+  const SEL = P.filter((p) => p.sel), N = SEL.length, SPAN = 270, START = -135, STEP = SPAN / (N - 1);
+  const gs = document.getElementById('gs'), scr = document.getElementById('scr'), dial = document.getElementById('dial'), knob = document.getElementById('knob'), leds = document.getElementById('leds'), prog = document.getElementById('prog');
+  scr.insertAdjacentHTML('afterbegin', SEL.map((p, i) => `<a class="sl" href="${href(p)}" tabindex="-1" aria-hidden="true"><img src="${p.img}" alt="" ${i > 1 ? 'loading="lazy"' : ''}></a>`).join(''));
+  const slides = [...scr.querySelectorAll('a.sl')];
+  SEL.forEach((_, i) => {
+    const a = ((START + i * STEP - 90) * Math.PI) / 180, t = document.createElement('span');
+    t.className = 'gs-num'; t.textContent = i + 1; t.style.left = `${50 + 47 * Math.cos(a)}%`; t.style.top = `${50 + 47 * Math.sin(a)}%`;
+    t.addEventListener('click', () => { stop(); sel(i); }); dial.appendChild(t);
+    leds.appendChild(document.createElement('i'));
+  });
+  const nums = [...dial.querySelectorAll('.gs-num')], dots = [...leds.children];
+  let cur = -1, filter = 'all';
+  const visible = () => SEL.map((_, k) => k).filter((k) => filter === 'all' || SEL[k].k.includes(filter));
+  function sel(i, keep) {
+    const v = visible(); if (!v.includes(i)) i = v.reduce((a, k) => Math.abs(k - i) < Math.abs(a - i) ? k : a, v[0]);
+    if (i === cur) return; cur = i; const p = SEL[i];
+    slides.forEach((s, j) => s.classList.toggle('on', j === i));
+    nums.forEach((t, j) => { t.classList.toggle('on', j === i); t.classList.toggle('off', !v.includes(j)); });
+    dots.forEach((d, j) => { d.classList.toggle('on', j === i); d.classList.toggle('dim', !v.includes(j)); });
+    if (!keep) knob.style.transform = `rotate(${START + i * STEP}deg)`;
+    root.style.setProperty('--c', p.c);
+    document.getElementById('hch').textContent = `CH ${pad(i + 1)}`;
+    document.getElementById('hkind').textContent = `${p.k.map((x) => x === 'physical' ? 'Physical' : 'Digital').join(' + ')} · ${p.y}`;
+    document.getElementById('ht').textContent = p.t; document.getElementById('hw').textContent = p.w;
+    document.getElementById('go').href = href(p); knob.setAttribute('aria-valuenow', i + 1); knob.setAttribute('aria-valuetext', p.t);
+    prog.classList.remove('run'); void prog.offsetWidth; if (timer) prog.classList.add('run');
+  }
+  const step = (d) => { const v = visible(), at = Math.max(0, v.indexOf(cur)); sel(v[Math.max(0, Math.min(v.length - 1, at + d))]); };
+  let drag = false;
+  const ang = (e) => { const r = knob.getBoundingClientRect(); return Math.atan2(e.clientY - r.top - r.height / 2, e.clientX - r.left - r.width / 2) * 180 / Math.PI + 90; };
+  knob.addEventListener('pointerdown', (e) => { drag = true; stop(); knob.setPointerCapture(e.pointerId); gs.classList.add('turning'); });
+  knob.addEventListener('pointermove', (e) => { if (!drag) return; let a = ang(e); if (a > 180) a -= 360; a = Math.max(START, Math.min(START + SPAN, a)); knob.style.transform = `rotate(${a}deg)`; const i = Math.round((a - START) / STEP); if (visible().includes(i)) sel(i, true); });
+  const end = () => { if (!drag) return; drag = false; gs.classList.remove('turning'); knob.style.transform = `rotate(${START + cur * STEP}deg)`; };
+  knob.addEventListener('pointerup', end); knob.addEventListener('pointercancel', end);
+  knob.addEventListener('wheel', (e) => { e.preventDefault(); stop(); step(e.deltaY > 0 ? 1 : -1); }, { passive: false });
+  knob.addEventListener('keydown', (e) => {
+    const m = { ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1 }[e.key];
+    if (m) { e.preventDefault(); stop(); step(m); }
+    if (e.key === 'Enter') location.href = document.getElementById('go').href;
+  });
+  const tog = document.getElementById('tog');
+  tog.querySelectorAll('button').forEach((b, k) => b.addEventListener('click', () => {
+    stop(); tog.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    document.getElementById('cap').style.transform = `translateX(${k * 100}%)`; filter = b.dataset.f;
+    const c = cur; cur = -1; sel(c);
+  }));
+  let timer = 0;
+  function stop() { if (timer) { clearInterval(timer); timer = 0; prog.classList.remove('run'); } }
+  if (!reduce) timer = setInterval(() => step(cur === visible().slice(-1)[0] ? -99 : 1), 3600);
+  sel(0);
+  gs.addEventListener('pointerdown', (e) => { if (!e.target.closest('[data-radio]')) stop(); });
+</script>
+</body>
+</html>
