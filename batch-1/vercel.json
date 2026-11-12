@@ -1,0 +1,81 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/work-index",
+      "destination": "/work",
+      "permanent": true
+    },
+    {
+      "source": "/skills-index",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/work-experience/pma",
+      "destination": "/mindgym",
+      "permanent": true
+    },
+    {
+      "source": "/work-experience/ph",
+      "destination": "/phenomena",
+      "permanent": true
+    },
+    {
+      "source": "/work-experience/mathias-gmacchi",
+      "destination": "/nexorade",
+      "permanent": true
+    },
+    {
+      "source": "/work/sound-proofing/:p*",
+      "destination": "/sound-objects",
+      "permanent": true
+    },
+    {
+      "source": "/work/material-exploration/:p*",
+      "destination": "/material-alternatives",
+      "permanent": true
+    },
+    {
+      "source": "/work/speculative-agriculture/:p*",
+      "destination": "/rotating-farm",
+      "permanent": true
+    },
+    {
+      "source": "/work/futuristic-kettle/:p*",
+      "destination": "/future-kettle",
+      "permanent": true
+    },
+    {
+      "source": "/work/finders-keepers/:p*",
+      "destination": "/finderseeker",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/work/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
+      ]
+    }
+  ]
+}
