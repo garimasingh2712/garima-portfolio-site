@@ -8,3 +8,4 @@ Plain HTML, CSS and JavaScript. No build step: Vercel serves the files as they a
 - `work/<project>/`: each project's photos and videos
 
 To preview on your computer: open `index.html` in a browser.
+Updated 12 Nov
